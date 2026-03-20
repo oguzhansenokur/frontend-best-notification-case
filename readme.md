@@ -85,34 +85,24 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 ---
 
 Built with ❤️ using React Router.
+# 📄 Frontend Architecture Case: Notification System (SOLID)
 
+## 🎯 Objective
+Build a flexible and extensible Notification System UI for a web application. The system must support multiple notification types and delivery channels while remaining scalable and maintainable.
 
-#TASK
-📄 README — Frontend Architecture Case (SOLID)
-🎯 Objective
+## 🧩 Scenario
+You are building the notification layer of a SaaS admin panel. The system should be able to:
+- Display notifications in the UI.
+- Support different notification types.
+- Allow multiple delivery strategies.
+- Be easily extendable without modifying core logic.
 
-Build a flexible and extensible Notification System UI for a web application.
+---
 
-The system must support multiple notification types and delivery channels while remaining scalable and maintainable.
+## 🧠 Requirements
 
-🧩 Scenario
-
-You are building the notification layer of a SaaS admin panel.
-
-The system should be able to:
-
-Display notifications in the UI
-
-Support different notification types
-
-Allow multiple delivery strategies
-
-Be easily extendable without modifying core logic
-
-🧠 Requirements
-1. Notification Model
-
-Each notification has:
+### 1. Notification Model
+Each notification has the following structure:
 
 type Notification = {
   id: string;
@@ -121,132 +111,66 @@ type Notification = {
   message: string;
   createdAt: Date;
 };
-2. Notification Types
 
+### 2. Notification Types
 At minimum, support:
+- **info**, **success**, **warning**, **error**.
+- Each type should have different UI behavior (style, icon, etc.).
 
-info
+### 3. Notification Rendering
+- Notifications should be rendered in a list.
+- Each notification type may render differently.
+- Rendering logic must be extensible.
 
-success
+### 4. Notification Source
+- **Static source:** Notification[]
+- **Remote source:** fetchNotifications(): Promise<Notification[]>
 
-warning
-
-error
-
-Each type should have different UI behavior (style, icon, etc.)
-
-3. Notification Rendering
-
-Notifications should be rendered in a list
-
-Each notification type may render differently
-
-Rendering logic must be extensible
-
-4. Notification Source
-
-Notifications can come from:
-
-A) Static source
-Notification[]
-B) Remote source
-fetchNotifications(): Promise<Notification[]>
-5. Actions
-
+### 5. Actions
 Each notification may support optional actions:
+- **dismiss**, **retry**, **navigate**.
+- Actions differ depending on notification type.
 
-dismiss
+### 6. Extensibility (CRITICAL)
+You must be able to do the following without modifying existing core components:
+- Add a new notification type (e.g., system-alert).
+- Add new action types without breaking existing ones.
+- Add new data sources without changing UI logic.
 
-retry
+### 7. State Management
+You are free to choose: local state, hooks, context, or any lightweight approach.
 
-navigate
+---
 
-Actions differ depending on notification type
+## 🚫 Constraints
+- **No External UI Libraries:** Do NOT use MUI, Ant Design, etc.
+- **No Conditional Abuse:** Do NOT hardcode logic with large if/else or switch statements.
+- **No Tight Coupling:** Do NOT tightly couple data fetching with rendering.
+- **No Monolithic Components:** Break down the logic into smaller, focused pieces.
 
-6. Extensibility (CRITICAL)
+## ✅ Expected Capabilities
+- Adding a new notification type seamlessly.
+- Switching from static to remote data source easily.
+- Attaching different behaviors to notifications dynamically.
 
-You must be able to:
+## 🧪 Bonus (Optional)
+- Queue System (max visible notifications).
+- Auto-dismiss after timeout.
+- Animation support.
+- Grouping notifications.
 
-Add a new notification type without modifying existing core components
+---
 
-Add new action types without breaking existing ones
+## 🧾 Deliverables
+1. Working React implementation.
+2. Clean project structure.
+3. Clear separation of concerns.
+4. Readable and maintainable code.
 
-Add new data sources without changing UI logic
+## 🧠 Evaluation Criteria
+- Architecture design (SOLID).
+- Extensibility & Dependency management.
+- Component API design.
+- Ability to handle change.
 
-7. State Management
-
-You are free to choose:
-
-local state
-
-hooks
-
-context
-
-any lightweight approach
-
-🚫 Constraints
-
-Do NOT use external UI libraries (no MUI, Ant, etc.)
-
-Do NOT hardcode logic with large conditionals (if/else or switch abuse)
-
-Do NOT tightly couple data fetching with rendering
-
-Do NOT create a monolithic component
-
-✅ Expected Capabilities
-
-Your implementation should allow scenarios like:
-
-adding a new notification type (e.g. system-alert)
-
-switching from static to remote data source
-
-attaching different behaviors to notifications dynamically
-
-🧪 Bonus (Optional)
-
-queue system (max visible notifications)
-
-auto-dismiss after timeout
-
-animation support
-
-grouping notifications
-
-🧾 Deliverables
-
-Working React implementation
-
-Clean project structure
-
-Clear separation of concerns
-
-Readable and maintainable code
-
-🧠 Evaluation Criteria
-
-You will be evaluated on:
-
-architecture design
-
-extensibility
-
-dependency management
-
-component API design
-
-separation of concerns
-
-ability to handle change
-
-⏱️ Time Expectation
-
-60–90 minutes
-
-📌 Notes
-
-Focus on design decisions, not visual perfection.
-
-Bitti.
+**Time Expectation:** 60–90 minutes
